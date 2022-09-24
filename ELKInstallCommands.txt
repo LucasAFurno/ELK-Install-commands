@@ -1,0 +1,35 @@
+Primero, debe agregar la clave de firma de Elastic para que se pueda verificar el paquete descargado (omita este paso si ya ha instalado paquetes de Elastic):
+
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+
+Para Debian, necesitamos instalar el paquete apt-transport-https:
+
+sudo apt-get update sudo apt-get install apt-transport-https
+
+El siguiente paso es agregar la definición de repositorio a su sistema:
+
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+
+Para instalar una versión de Elasticsearch que contenga solo características con licencia de Apache 2.0 (también conocido como OSS Elasticsearch):
+
+echo "deb https://artifacts.elastic.co/packages/oss-7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+
+Todo lo que queda por hacer es actualizar sus repositorios e instalar Elasticsearch:
+
+sudo apt-get update sudo apt-get install elasticsearch
+
+Para ejecutar Elasticsearch, usa:
+
+sudo service elasticsearch start
+
+Para confirmar que todo funciona como se esperaba, apunte curl o su navegador a http://localhost:9200, y debería ver algo como el siguiente resultado:
+
+{ "name" : "ip-172-31-10-207", "cluster_name" 
+: "elasticsearch", "cluster_uuid" 
+: "bzFHfhcoTAKCH-Niq6_GEA", "version" 
+: { "number" : "7.1.1", "build_flavor" 
+: "default", "build_type" : "deb", "build_hash"
+ : "7a013de", "build_date" : "2019-05-23T14:04:00.380842Z", "build_snapshot" 
+: false, "lucene_version" : "8.0.0", "minimum_wire_compatibility_version" 
+: "6.8.0", "minimum_index_compatibility_version" : "6.0.0-beta1" },
+ "tagline" : "You Know, for Search" }
